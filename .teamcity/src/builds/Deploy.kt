@@ -67,8 +67,9 @@ object Deploy : BuildType({
             id = "RunDeployScript"
             commands = """
                 echo "Running launch.sh ..."
-                chmod 777 ./demo-app/target/launch.sh
-                ./demo-app/target/launch.sh
+                cd ./demo-app/target
+                chmod 777 ./launch.sh
+                ./launch.sh
             """.trimIndent()
             targetUrl = "192.168.0.99"
             authMethod = uploadedKey {
