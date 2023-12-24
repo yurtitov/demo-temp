@@ -31,6 +31,12 @@ version = "2023.11"
 project {
 
     buildType(Build)
+    buildType(Package)
+
+    sequential {
+        buildType(Build)
+        buildType(Package)
+    }
 
     features {
         githubConnection {
@@ -51,9 +57,30 @@ object Build : BuildType({
 
     steps {
         maven {
-            id = "Maven2"
-            name = "Testing"
-            goals = "clean test"
+            name = "Compile step"
+            goals = "clean compile"
+            runnerArgs = "-Dmaven.test.failure.ignore=true"
+            jdkHome = "%env.JDK_17_0%"
+        }
+    }
+
+    features {
+        perfmon {
+        }
+    }
+})
+
+object Package : BuildType({
+    name = "Build"
+
+    vcs {
+        root(DslContext.settingsRoot)
+    }
+
+    steps {
+        maven {
+            name = "Package step"
+            goals = "clean package"
             runnerArgs = "-Dmaven.test.failure.ignore=true"
             jdkHome = "%env.JDK_17_0%"
         }
