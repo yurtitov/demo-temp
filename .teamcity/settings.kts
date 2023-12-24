@@ -43,15 +43,6 @@ project {
         }
         buildType(Package)
     }
-
-    features {
-        githubConnection {
-            id = "PROJECT_EXT_3"
-            displayName = "GitHub.com"
-            clientId = "yurtitov"
-            clientSecret = "credentialsJSON:8edcdd80-bb3b-466f-8869-01eee92e198c"
-        }
-    }
 }
 
 object Build : BuildType({
@@ -87,7 +78,6 @@ object FastTest : BuildType({
         maven {
             goals = "clean test"
             runnerArgs = "-Dmaven.test.failure.ignore=true -Dtest=*.unit.*Test"
-            jdkHome = "%env.JDK_17_0%"
         }
     }
 
@@ -108,7 +98,6 @@ object SlowTest : BuildType({
         maven {
             goals = "clean test"
             runnerArgs = "-Dmaven.test.failure.ignore=true -Dtest=*.integration.*Test"
-            jdkHome = "%env.JDK_17_0%"
         }
     }
 
