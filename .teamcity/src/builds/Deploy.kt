@@ -17,8 +17,7 @@ object Deploy : BuildType({
 
     steps {
         maven {
-            name = "Build"
-            goals = "clean build"
+            this.goals = "clean build"
         }
 
         maven {
