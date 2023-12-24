@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 echo "Start deploy"
-docker compose up -d
+sudo docker compose up -d
