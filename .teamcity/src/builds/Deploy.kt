@@ -6,6 +6,7 @@ import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
 import jetbrains.buildServer.configs.kotlin.buildSteps.SSHUpload
 import jetbrains.buildServer.configs.kotlin.buildSteps.exec
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
+import jetbrains.buildServer.configs.kotlin.buildSteps.sshExec
 import jetbrains.buildServer.configs.kotlin.buildSteps.sshUpload
 
 object Deploy : BuildType({
@@ -48,13 +49,27 @@ object Deploy : BuildType({
         }
 
         sshUpload {
-            name = "UploadJavaPackages"
-            id = "__NEW_RUNNER__"
+            name = "Upload app source to the server"
+            id = "UploadAppSources"
             transportProtocol = SSHUpload.TransportProtocol.SCP
             sourcePath = """
                 app_sources/*
             """.trimIndent()
             targetUrl = "192.168.0.99:demo-app/target"
+            authMethod = uploadedKey {
+                username = "ytty"
+                key = "Keys for app server connection"
+            }
+        }
+
+        sshExec {
+            name = "Run deploy script on the server"
+            id = "RunDeployScript"
+            commands = """
+                echo "Running launch.sh ..."
+                ./demo-app/target/launch.sh
+            """.trimIndent()
+            targetUrl = "192.168.0.99"
             authMethod = uploadedKey {
                 username = "ytty"
                 key = "Keys for app server connection"
