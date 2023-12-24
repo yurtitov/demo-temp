@@ -1,6 +1,8 @@
 package src.builds
 
 import jetbrains.buildServer.configs.kotlin.BuildType
+import jetbrains.buildServer.configs.kotlin.DslContext
+import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
 import jetbrains.buildServer.configs.kotlin.buildSteps.exec
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
 
@@ -8,6 +10,10 @@ object Deploy : BuildType({
     name = "Deploy"
     description = "Build, test and upload to the server"
     id("Deploy")
+
+    vcs {
+        root(DslContext.settingsRoot)
+    }
 
     steps {
         maven {
@@ -37,6 +43,11 @@ object Deploy : BuildType({
             name = "Run deploy script file"
             formatStderrAsError = true
             path = resolvePathToScript("scripts/deploy.sh")
+        }
+    }
+
+    features {
+        perfmon {
         }
     }
 })
