@@ -29,7 +29,7 @@ project {
         buildType(Maven("Package", "clean package"))
     }.buildTypes()
 
-    buildTypes.forEach(::buildType)
+    buildTypes.forEach { buildType(it) }
     buildTypes.last().triggers {
         vcs {
 
@@ -38,6 +38,7 @@ project {
 }
 
 class Maven(name: String, goals: String, runnerArgs: String? = null) : BuildType({
+    id(name)
     this.name = name
 
     vcs {
