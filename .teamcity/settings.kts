@@ -38,7 +38,7 @@ project {
 }
 
 class Maven(name: String, goals: String, runnerArgs: String? = null) : BuildType({
-    id(name)
+    id(name.toId())
     this.name = name
 
     vcs {
@@ -57,3 +57,7 @@ class Maven(name: String, goals: String, runnerArgs: String? = null) : BuildType
         }
     }
 })
+
+fun String.toId(): String {
+    return this.replace(' ', '_')
+}
