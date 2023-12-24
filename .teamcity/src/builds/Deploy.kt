@@ -24,19 +24,19 @@ object Deploy : BuildType({
 
         maven {
             name = "Unit tests"
-            goals = "clear test"
+            goals = "clean test"
             runnerArgs = "-Dmaven.test.failure.ignore=true -Dtest=*.utit.*Test"
         }
 
         maven {
             name = "Integration tests"
-            goals = "clear test"
+            goals = "clean test"
             runnerArgs = "-Dmaven.test.failure.ignore=true -Dtest=*.integration.*Test"
         }
 
         maven {
             name = "Build artifacts"
-            goals = "clear install"
+            goals = "clean install"
             runnerArgs = "-DskipTests"
         }
 
