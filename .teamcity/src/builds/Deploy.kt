@@ -19,23 +19,23 @@ object Deploy : BuildType({
     }
 
     steps {
-//        maven {
-//            name = "Compile source code"
-//            goals = "clean compile"
-//            runnerArgs = "-DskipTests"
-//        }
-//
-//        maven {
-//            name = "Unit tests"
-//            goals = "clean test"
-//            runnerArgs = "-Dmaven.test.failure.ignore=true -Dtest=*.unit.*Test"
-//        }
-//
-//        maven {
-//            name = "Integration tests"
-//            goals = "clean test"
-//            runnerArgs = "-Dmaven.test.failure.ignore=true -Dtest=*.integration.*Test"
-//        }
+        maven {
+            name = "Compile source code"
+            goals = "clean compile"
+            runnerArgs = "-DskipTests"
+        }
+
+        maven {
+            name = "Unit tests"
+            goals = "clean test"
+            runnerArgs = "-Dmaven.test.failure.ignore=true -Dtest=*.unit.*Test"
+        }
+
+        maven {
+            name = "Integration tests"
+            goals = "clean test"
+            runnerArgs = "-Dmaven.test.failure.ignore=true -Dtest=*.integration.*Test"
+        }
 
         maven {
             name = "Build artifacts"
