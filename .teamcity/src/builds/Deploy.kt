@@ -3,8 +3,9 @@ package src.builds
 import jetbrains.buildServer.configs.kotlin.BuildType
 import jetbrains.buildServer.configs.kotlin.DslContext
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
-import jetbrains.buildServer.configs.kotlin.buildSteps.exec
+import jetbrains.buildServer.configs.kotlin.buildSteps.SSHUpload
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
+import jetbrains.buildServer.configs.kotlin.buildSteps.sshUpload
 
 object Deploy : BuildType({
     name = "Deploy"
@@ -40,10 +41,19 @@ object Deploy : BuildType({
             runnerArgs = "-DskipTests"
         }
 
-        exec {
-            name = "Run deploy script file"
-            formatStderrAsError = true
-            path = resolvePathToScript("scripts/deploy.sh")
+        sshUpload {
+            name = "UploadJavaPackages"
+            id = "__NEW_RUNNER__"
+            transportProtocol = SSHUpload.TransportProtocol.SCP
+            sourcePath = """
+                target/demo-*.jar
+                scripts/launch.sh
+            """.trimIndent()
+            targetUrl = "192.168.0.99:demo-app/target"
+            authMethod = uploadedKey {
+                username = "ytty"
+                key = "Keys for app server connection"
+            }
         }
     }
 
