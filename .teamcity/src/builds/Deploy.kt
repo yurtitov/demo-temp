@@ -17,7 +17,9 @@ object Deploy : BuildType({
 
     steps {
         maven {
-            this.goals = "clean build"
+            name = "Build"
+            goals = "clean build"
+            runnerArgs = "-DskipTests"
         }
 
         maven {
