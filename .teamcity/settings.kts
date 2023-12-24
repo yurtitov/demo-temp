@@ -71,7 +71,7 @@ object Build : BuildType({
 })
 
 object Package : BuildType({
-    name = "Build"
+    name = "Package"
 
     vcs {
         root(DslContext.settingsRoot)
