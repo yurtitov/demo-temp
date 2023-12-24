@@ -25,7 +25,7 @@ object Deploy : BuildType({
         maven {
             name = "Unit tests"
             goals = "clean test"
-            runnerArgs = "-Dmaven.test.failure.ignore=true -Dtest=*.utit.*Test"
+            runnerArgs = "-Dmaven.test.failure.ignore=true -Dtest=*.unit.*Test"
         }
 
         maven {
